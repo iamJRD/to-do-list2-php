@@ -1,10 +1,11 @@
 <?php
-    require_once 'src/Task.php';
 
     /**
     * @backupGlobals disabled
     * @backupStaticAttributes disabled
     */
+
+    require_once 'src/Task.php';
 
     $server = 'mysql:host=localhost;dbname=to_do_test';
     $username = 'root';
@@ -13,11 +14,13 @@
 
     class TaskTest extends PHPUnit_Framework_TestCase
     {
-        protected function tearDown() {
+        protected function tearDown()
+        {
             Task::deleteAll();
         }
 
-        function test_save() {
+        function testSave()
+        {
             //Arrange;
             $description = "Wash the dog";
             $id = 1;
@@ -33,8 +36,8 @@
 
         }
 
-        function test_getAll() {
-
+        function testGetAll()
+        {
             //Arrange
             $description = "Wash the dog";
             $id = 1;
@@ -54,7 +57,7 @@
             $this->assertEquals([$test_task, $test_task2], $result);
         }
 
-        function test_getId()
+        function testGetId()
         {
           //arrange
           $description = "Wash the dog";
@@ -70,7 +73,8 @@
           $this->assertEquals(true, is_numeric($result));
         }
 
-        function test_deleteAll() {
+        function testDeleteAll()
+        {
           //Arrange;
           $description = "Wash the dog";
           $id = 1;
@@ -91,7 +95,8 @@
           $this->assertEquals([], $result);
         }
 
-        function test_find() {
+        function testFind()
+        {
           //Arrange;
           $description = "Wash the dog";
           $id = 1;
@@ -112,7 +117,8 @@
           $this->assertEquals($test_task, $result);
         }
 
-        function test_get_date() {
+        function testGetDate()
+        {
           //arrange
           $description = "Put tools away";
           $id = 1;
@@ -128,7 +134,8 @@
 
         }
 
-        function test_sort_by_date() {
+        function testSortByDate()
+        {
           //arrange
           $description = "Put tools away";
           $id = 1;
@@ -144,6 +151,7 @@
 
           //act
           $result = Task::getAll();
+
           //assert
           $this->assertEquals([$test_task2, $test_task], $result);
         }

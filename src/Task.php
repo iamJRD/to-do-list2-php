@@ -1,41 +1,50 @@
 <?php
-    class Task {
+    class Task
+    {
         private $description;
         private $id;
         private $due_date;
 
-        function __construct($description, $id = null, $due_date) {
+        function __construct($description, $id = null, $due_date, $completion = null)
+        {
             $this->description = $description;
             $this->id = $id;
             $this->due_date = $due_date;
         }
 
-        function setDescription($new_description) {
+        function setDescription($new_description)
+        {
             $this->description = $new_description;
         }
 
-        function getDescription() {
+        function getDescription()
+        {
             return $this->description;
         }
 
-        function getId() {
+        function getId()
+        {
             return $this->id;
         }
 
-        function setDueDate($new_due_date) {
+        function setDueDate($new_due_date)
+        {
             $this->due_date = $new_due_date;
         }
 
-        function getDueDate() {
+        function getDueDate()
+        {
           return $this->due_date;
         }
 
-        function save() {
+        function save()
+        {
             $GLOBALS['DB']->exec("INSERT INTO tasks (description, due_date) VALUES ('{$this->getDescription()}', '{$this->getDueDate()}')");
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
 
-        static function getAll() {
+        static function getAll()
+        {
             $returned_tasks = $GLOBALS['DB']->query("SELECT * FROM tasks ORDER BY due_date;");
             $tasks = array();
             foreach ($returned_tasks as $task) {
@@ -48,7 +57,8 @@
             return $tasks;
         }
 
-        static function deleteAll() {
+        static function deleteAll()
+        {
             $GLOBALS['DB']->exec("DELETE FROM tasks");
         }
 
@@ -64,7 +74,6 @@
             }
             return $found_task;
         }
-
 
         function getCategories()
         {
@@ -90,12 +99,14 @@
             $GLOBALS['DB']->exec("INSERT INTO categories_tasks (category_id, task_id) VALUES ({$category->getId()}, {$this->getId()});");
         }
 
-        public function delete() {
+        public function delete()
+        {
             $GLOBALS['DB']->exec("DELETE FROM tasks WHERE id = {$this->getId()};");
             $GLOBALS['DB']->exec("DELETE FROM categories_tasks WHERE task_id = {$this->getId()};");
         }
 
-        public function update($new_description, $new_due_date) {
+        public function update($new_description, $new_due_date)
+        {
             $GLOBALS['DB']->exec("UPDATE tasks SET description = '{$new_description}', due_date = '{$new_due_date}' WHERE id = {$this->getId()};");
             $this->setDescription($new_description);
             $this->setDueDate($new_due_date);

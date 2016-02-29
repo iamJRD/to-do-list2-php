@@ -41,7 +41,6 @@
             $id = $category['id'];
             $new_category = new Category($name, $id);
             array_push($categories, $new_category);
-
             }
             return $categories;
         }
@@ -95,9 +94,11 @@
             $GLOBALS['DB']->exec("DELETE FROM categories_tasks WHERE category_id = {$this->getId()};");
         }
 
-        public function update($new_name) {
+        public function update($new_name)
+        {
             $GLOBALS['DB']->exec("UPDATE categories SET name = '{$new_name}' WHERE id = {$this->getId()};");
             $this->setName($new_name);
         }
     }
+    
 ?>

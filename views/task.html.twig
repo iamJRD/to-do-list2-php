@@ -15,7 +15,7 @@
                 {% endfor %}
             </ul>
         {% endif %}
-
+<!-- ADD TASK TO CATEGORY DROPDOWN -->
         <form action="/task_add_category" method="post">
             <input id="task_id" = name="task_id" type="hidden" value="{{ task.getId }}">
                 <label for="category_id">Add this task to a category:</label>
@@ -26,11 +26,10 @@
                 </select>
             <button type="submit">Add Category</button>
         </form>
-
+<!-- EDIT TASK FORM -->
         <h5>Edit your task here:</h5>
         <form action="/task/{{ task.getId }}/update" method="post">
             <input type="hidden" name="_method" value="patch">
-
 
             <label for='new_description'>New Task Description:</label>
             <input id='new_description' name='new_description' type='text' value="{{ task.getDescription }}" required>
@@ -40,12 +39,12 @@
 
             <button type='submit'>Update Task</button>
         </form>
-
+<!-- DELETE TASK BUTTON -->
         <form action="/task/{{ task.getId }}/delete" method="post">
             <input type="hidden" name="_method" value="delete">
             <button type="submit">Delete this task!</button>
         </form>
-
+<!-- NAVIGATION -->
         {% include 'footer.html' %}
 
     </body>
